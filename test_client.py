@@ -9,21 +9,6 @@ import numpy as np
 import time
 import random
 
-#Druid
-DRUIDURL= os.getenv('DRUIDURL')
-ASSETID= os.getenv('ASSETID')
-INTERVAL= os.getenv('INTERVAL')
-
-##Get Token
-TOKENURL= os.getenv('TOKENURL')
-CLIENTID= os.getenv('CLIENTID')
-CLIENTSECRET= os.getenv('CLIENTSECRET')
-USERNAME= os.getenv('USERNAME')
-PASSWORD= os.getenv('PASSWORD')
-
-##Post Score
-SCOREURL= os.getenv('SCOREURL')
-
 
 ## assetId / 파라미터 physical_name / Interva(10분)에 따른 Druid 데이터 조회
 def getDataFromDruid(ASSETID,INTERVAL):
@@ -83,6 +68,21 @@ def postScore(token,score):
 if __name__ == "__main__":
 
     load_dotenv()
+    
+    #Druid
+    DRUIDURL= os.getenv('DRUIDURL')
+    ASSETID= os.getenv('ASSETID')
+    INTERVAL= os.getenv('INTERVAL')
+
+    ##Get Token
+    TOKENURL= os.getenv('TOKENURL')
+    CLIENTID= os.getenv('CLIENTID')
+    CLIENTSECRET= os.getenv('CLIENTSECRET')
+    USERNAME= os.getenv('USERNAME')
+    PASSWORD= os.getenv('PASSWORD')
+
+    ##Post Score
+    SCOREURL= os.getenv('SCOREURL')
 
     getDataFromDruid(ASSETID,10)
     score=simpleModeling()
