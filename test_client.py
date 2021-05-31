@@ -50,10 +50,10 @@ def getToken():
 def postScore(token,score):
     headers = {'Content-type':'application/json', 'Authorization' : 'Bearer '+token}
     data = {"timestamp":round(time.time()*1000),
-        "assetId": "64fd18b7-4f4e-48be-aa8b-f00666392a43",
+        "assetId": ASSETIDGV,
         "modelType": "EXT_v1.0",
-        "fromTimestamp": 1591847815917,
-        "toTimestamp": 1591847815917,
+        "fromTimestamp": 0000000000000,
+        "toTimestamp": 0000000000000,
         "assetScore": score}
 
     res = requests.post(SCOREURL , headers = headers , data = json.dumps(data))
@@ -66,7 +66,7 @@ def postScore(token,score):
 
 
 if __name__ == "__main__":
-
+    #Load Global Env
     load_dotenv()
     
     #Druid
@@ -82,8 +82,10 @@ if __name__ == "__main__":
     PASSWORD= os.getenv('PASSWORD')
 
     ##Post Score
+    ASSETIDGV= os.getenv('ASSETIDGV')
     SCOREURL= os.getenv('SCOREURL')
 
+    ##Main
     getDataFromDruid(ASSETID,10)
     score=simpleModeling()
     token=getToken()
