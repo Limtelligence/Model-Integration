@@ -2,5 +2,13 @@
 
 
 ## API를 활용한 모델 연동 Test Client
+##
+fill in .env file
 
-test_client.py
+```
+$ pip install python-dotenv
+```
+
+```
+$test_client.py
+```
