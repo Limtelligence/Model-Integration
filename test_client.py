@@ -11,13 +11,14 @@ import random
 
 
 ## assetId / 파라미터 physical_name / Interva(10분)에 따른 Druid 데이터 조회
-def getDataFromDruid(ASSETID,INTERVAL):
+def getDataFromDruid(TABLENAME,ASSETID,INTERVAL):
     url = DRUIDURL
+    table = TABLENAME
     headers = {'Content-Type': 'application/json; charset=utf-8'}
-    query = """SELECT * FROM \"druid\".\"asset_trace_asset_ss_model_01\" 
+    query = """SELECT * FROM \"druid\".\"'{}'\" 
     where assetId='{}'  
     and __time between  CURRENT_TIMESTAMP - INTERVAL '{}' MINUTE 
-    and CURRENT_TIMESTAMP""".format(ASSETID,INTERVAL)
+    and CURRENT_TIMESTAMP""".format(TABLENAME,ASSETID,INTERVAL)
     data = {"query" : query}
     res = requests.post(url, data=json.dumps(data), headers=headers)
 
@@ -28,8 +29,9 @@ def getDataFromDruid(ASSETID,INTERVAL):
 
 
 ##Modeling
-def simpleModeling():
-    score=random.random()
+def simpleModeling(data):
+    input = data
+    score =random.random()
     return(score)
 
 
@@ -73,6 +75,7 @@ if __name__ == "__main__":
     DRUIDURL= os.getenv('DRUIDURL')
     ASSETID= os.getenv('ASSETID')
     INTERVAL= os.getenv('INTERVAL')
+    TABLENAME= os.getenv('TABLENAME')
 
     ##Get Token
     TOKENURL= os.getenv('TOKENURL')
@@ -86,8 +89,8 @@ if __name__ == "__main__":
     SCOREURL= os.getenv('SCOREURL')
 
     ##Main
-    getDataFromDruid(ASSETID,10)
-    score=simpleModeling()
-    token=getToken()
+    data= getDataFromDruid(TABLENAME,ASSETID,10)
+    score= simpleModeling(data)
+    token= getToken()
 
     postScore(token,score)
