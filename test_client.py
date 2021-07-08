@@ -15,10 +15,11 @@ def getDataFromDruid(TABLENAME,ASSETID,INTERVAL):
     url = DRUIDURL
     table = TABLENAME
     headers = {'Content-Type': 'application/json; charset=utf-8'}
-    query = """SELECT * FROM \"druid\".\"'{}'\" 
+    query = """SELECT * FROM \"druid\".\"{}\" 
     where assetId='{}'  
     and __time between  CURRENT_TIMESTAMP - INTERVAL '{}' MINUTE 
     and CURRENT_TIMESTAMP""".format(TABLENAME,ASSETID,INTERVAL)
+    print(query)
     data = {"query" : query}
     res = requests.post(url, data=json.dumps(data), headers=headers)
 
