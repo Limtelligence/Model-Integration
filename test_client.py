@@ -55,6 +55,7 @@ def postScore(token,score):
     data = {"timestamp":round(time.time()*1000),
         "assetId": ASSETIDGV,
         "modelType": "EXT_v1.0",
+        "modelName": MODELNAME,
         "fromTimestamp": 0000000000000,
         "toTimestamp": 0000000000000,
         "assetScore": score}
@@ -65,6 +66,7 @@ def postScore(token,score):
         print(res.text)
     else:
         print("Score Sent")
+        print(res.text)
 
 
 
@@ -88,6 +90,7 @@ if __name__ == "__main__":
     ##Post Score
     ASSETIDGV= os.getenv('ASSETIDGV')
     SCOREURL= os.getenv('SCOREURL')
+    MODELNAME= os.getenv('MODELNAME')
 
     ##Main
     data= getDataFromDruid(TABLENAME,ASSETID,10)
